@@ -2,8 +2,8 @@ function info() {
     console.log("INFO")
     const response = {
         apiversion: "1",
-        author: "",
-        color: "#888888",
+        author: "prakashio",
+        color: "#9baaff",
         head: "default",
         tail: "default"
     }
