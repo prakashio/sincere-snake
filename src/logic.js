@@ -3,9 +3,9 @@ function info() {
     const response = {
         apiversion: "1",
         author: "prakashio",
-        color: "#9baaff",
-        head: "default",
-        tail: "default"
+        color: "#F9ED69",
+        head: "dead",
+        tail: "pixel"
     }
     return response
 }
@@ -41,12 +41,48 @@ function move(gameState) {
 
     // TODO: Step 1 - Don't hit walls.
     // Use information in gameState to prevent your Battlesnake from moving beyond the boundaries of the board.
-    // const boardWidth = gameState.board.width
-    // const boardHeight = gameState.board.height
+    const boardWidth = gameState.board.width
+    const boardHeight = gameState.board.height
+    const snakeHead = gameState.you.head;
+
+    if (snakeHead.x === boardWidth - 1) {
+        possibleMoves.right = false
+    }
+    if (snakeHead.x === 0) {
+        possibleMoves.left = false
+    }
+    if (snakeHead.y === boardHeight - 1) {
+        possibleMoves.up = false
+    }
+    if (snakeHead.y === 0) {
+        possibleMoves.down = false
+    }
 
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.
-    // const mybody = gameState.you.body
+    const mybody = gameState.you.body
+    
+    if (possibleMoves.right) {
+        if (mybody.filter(b => b.x === snakeHead.x + 1 && b.y === snakeHead.y).length) {
+            possibleMoves.right = false
+        }
+    }
+    if (possibleMoves.left) {
+        if(mybody.filter(b => b.x === snakeHead.x - 1 && b.y === snakeHead.y).length) {
+            possibleMoves.left = false
+        }
+    }
+
+    if (possibleMoves.up) {
+        if (mybody.filter(b => b.x === snakeHead.x && b.y === snakeHead.y+1).length) {
+            possibleMoves.up = false
+        }
+    }
+    if (possibleMoves.down) {
+        if(mybody.filter(b => b.x === snakeHead.x && b.y === snakeHead.y-1).length) {
+            possibleMoves.down = false
+        }
+    }
 
     // TODO: Step 3 - Don't collide with others.
     // Use information in gameState to prevent your Battlesnake from colliding with others.
